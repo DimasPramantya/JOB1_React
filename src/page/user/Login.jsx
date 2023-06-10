@@ -1,20 +1,20 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const LoginSuperUser = ()=>{
+const UserLogin = ()=>{
     const handleSubmit = async(event)=>{
         event.preventDefault();
         try {
             const {username, password} = formLogin;
-            const response = await axios.post("http://localhost:5000/super-user/login", {username,password});
+            const response = await axios.post("http://localhost:5000/user/login", {username,password});
             const {status} = response.data;
             if(status==="error"){
                 const {err} = response.data;
                 return alert(err)
             }
             else{
-                navigate("/super-user");
+                navigate("/user");
             }
         } catch (error) {
             console.log(error);
@@ -33,7 +33,7 @@ const LoginSuperUser = ()=>{
     }
     return(
         <>
-             <main className="w-1/3 mx-auto mt-16 flex flex-col">
+            <main className="w-1/3 mx-auto mt-16 flex flex-col">
                 <form onSubmit={handleSubmit}>
                         <div className="mb-5 w-full flex justify-center">
                             <div className="text-2xl font-bold">Login</div>
@@ -58,16 +58,9 @@ const LoginSuperUser = ()=>{
                             Login
                         </button>
                 </form>
-                <div className="w-full flex justify-center mt-8">
-                    <Link to="/form-permohonan">
-                        <button type="button" className="px-4 py-2 bg-blue-700 text-white rounded-lg hover:bg-blue-400">
-                            Form Permohonan
-                        </button>
-                    </Link>
-                </div>
             </main>
         </>
     )
 }
 
-export default LoginSuperUser
+export default UserLogin;
